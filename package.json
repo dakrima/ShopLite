@@ -1,0 +1,16 @@
+{
+  "name": "shoplite-mockup",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mockup frontend de SUR / ShopLite",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node pruebas/test_tienda.cjs && node pruebas/test_interfaz.cjs && node pruebas/test_publicacion.cjs",
+    "test:e2e": "playwright test",
+    "medir": "node herramientas/medir_rendimiento.cjs",
+    "build": "node herramientas/preparar_publicacion.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.0"
+  }
+}

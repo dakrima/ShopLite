@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203b2d">
+  <title>SUR Equipados para salir | ShopLite</title>
+  <meta name="description" content="Equipo outdoor SUR para tu próxima salida. Explora chaquetas, mochilas y accesorios, elige tu variante y recibe en todo Chile.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SUR Equipados para salir | ShopLite">
+  <meta property="og:description" content="Equipo outdoor para tu próxima salida. Explora chaquetas, mochilas y accesorios de SUR.">
+  <link rel="preload" as="image" href="./imagenes/photo-1464822759023-fed622ff2c3b.jpg" media="(min-width: 721px)" fetchpriority="high">
+  <link rel="preload" as="image" href="./imagenes/hero-movil.webp" media="(max-width: 720px)" fetchpriority="high">
+  <link rel="preload" as="font" type="font/woff2" href="./fuentes/dm-sans-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="./fuentes/libre-caslon-display-400.woff2" crossorigin>
+  <link rel="stylesheet" href="./estilos.css">
+  <script src="./catalogo.js" defer></script>
+  <script src="./tienda.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="saltar" href="#catalogo">Ir al catálogo</a>
+  <div class="anuncio"><span>Envío gratis desde $80.000 y retiro sin costo</span></div>
+  <header class="cabecera">
+    <a class="marca" href="./index.html" aria-label="SUR, inicio"><svg viewBox="0 0 45 38" aria-hidden="true"><path d="M2 33 17 5l8 14 5-9 13 23H2Zm10-5h23L29 18l-5 9-7-13-5 14Z" fill="currentColor"/></svg><span>SUR</span></a>
+    <nav class="navegacion" aria-label="Principal"><button type="button" data-categoria="Todas">Explorar</button><button type="button" data-categoria="Chaquetas">Vestuario</button><button type="button" data-categoria="Mochilas">Equipamiento</button><button type="button" id="ver-ofertas">Últimas oportunidades <span>↗</span></button></nav>
+    <div class="acciones"><button class="icono" id="ver-favoritos" aria-label="Ver favoritos" title="Favoritos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><span class="contador" id="cantidad-favoritos" hidden>0</span></button><button class="icono" id="ver-pedidos" aria-label="Mis pedidos" title="Mis pedidos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a7 7 0 0 0-14 0v2M13 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg></button><button class="bolsa icono" id="ver-carrito" aria-label="Abrir carrito"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l1 14H4L5 7ZM9 8V6a3 3 0 0 1 6 0v2"/></svg><span id="cantidad-carrito">0</span></button></div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="titulo-hero">
+      <div class="hero-foto"></div><div class="hero-velo"></div>
+      <div class="hero-texto"><span class="ceja">NUEVA TEMPORADA / 2026</span><h1 id="titulo-hero">Afuera<br>es mejor.</h1><p>Menos ruido. Más camino.<br>Encuentra lo que te acompaña a salir.</p><a class="boton claro" href="#catalogo">Encuentra tu próxima aventura <span>↗</span></a></div>
+      <div class="hero-pie"><span>DISEÑADO PARA IR MÁS LEJOS.</span><span>50°56′ S 73°24′ O <i>Patagonia, Chile</i></span></div>
+    </section>
+    <section class="catalogo seccion" id="catalogo" aria-labelledby="titulo-catalogo">
+      <div class="encabezado-seccion"><div><span class="ceja verde">BUEN EQUIPO. MEJORES HISTORIAS.</span><h2 id="titulo-catalogo">Listos para salir.</h2></div><p>Lo esencial para tu próximo destino.<br>Del día a día al fin del mundo.</p></div>
+      <div class="barra-catalogo"><div class="categorias" role="group" aria-label="Categorías"><button type="button" class="activa" data-categoria="Todas">Todo el equipo</button><button type="button" data-categoria="Chaquetas">Chaquetas</button><button type="button" data-categoria="Polar y capas">Polar y capas</button><button type="button" data-categoria="Mochilas">Mochilas</button><button type="button" data-categoria="Accesorios">Accesorios</button><button type="button" data-categoria="Calzado">Calzado</button></div><button id="limpiar-filtros" class="texto-boton" hidden>Limpiar filtros ↗</button></div>
+      <div class="herramientas"><p id="resumen-catalogo" aria-live="polite">Cargando equipo…</p><div class="filtros"><label class="buscador"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="busqueda" type="search" placeholder="Buscar equipo" aria-label="Buscar productos"></label><label class="orden"><span class="sr-only">Ordenar productos</span><select id="orden"><option value="destacados">Destacados</option><option value="precio-menor">Precio: menor a mayor</option><option value="precio-mayor">Precio: mayor a menor</option><option value="nombre">Nombre: A a Z</option></select></label></div></div>
+      <div class="productos" id="productos" aria-busy="true"><div class="esqueleto"></div><div class="esqueleto"></div><div class="esqueleto"></div><div class="esqueleto"></div></div>
+    </section>
+    <section class="manifiesto"><span class="ceja">LLEVA SOLO LO QUE IMPORTA.</span><h2>El camino no pide mucho.<br>Un buen equipo, sí.</h2><p>Seleccionamos esenciales que se ganan su lugar en tu mochila.<br>Funcionales, versátiles y listos para la siguiente salida.</p><a href="#catalogo" class="texto-boton">Volver al equipo <span>↗</span></a><span class="sello" aria-hidden="true">SUR<br>OUTDOOR<br>COMPANY</span></section>
+    <section class="beneficios" aria-label="Información de compra"><div><span>↗</span><h3>De norte a sur</h3><p>Despachamos a todo Chile.</p></div><div><span>⌂</span><h3>Tu salida, a tu ritmo</h3><p>Retiro gratis en nuestra tienda.</p></div><div><span>✓</span><h3>Compra con claridad</h3><p>Stock y total antes de pagar.</p></div></section>
+  </main>
+  <footer><div class="pie-marca">SUR<span>OUTDOOR COMPANY</span></div><p>Equipados para lo que viene.</p><button class="texto-boton" id="ver-comerciante">Administración ↗</button></footer>
+  <dialog id="dialogo-ficha" class="dialogo ficha" aria-labelledby="titulo-ficha"><button class="cerrar" data-cerrar aria-label="Cerrar ficha">✕</button><div id="contenido-ficha"></div></dialog>
+  <dialog id="dialogo-carrito" class="dialogo carrito" aria-labelledby="titulo-carrito"><div class="cabecera-dialogo"><div><span class="ceja verde">LO QUE TE ACOMPAÑA</span><h2 id="titulo-carrito">Tu bolsa.</h2></div><button class="cerrar" data-cerrar aria-label="Cerrar carrito">✕</button></div><div id="contenido-carrito"></div></dialog>
+  <dialog id="dialogo-checkout" class="dialogo checkout" aria-labelledby="titulo-checkout"><div class="cabecera-dialogo"><div><span class="ceja verde">YA CASI ESTÁS AFUERA</span><h2 id="titulo-checkout">Finaliza tu compra.</h2></div><button class="cerrar" data-cerrar aria-label="Cerrar compra">✕</button></div><div id="contenido-checkout"></div></dialog>
+  <dialog id="dialogo-pedidos" class="dialogo pedidos" aria-labelledby="titulo-pedidos"><div class="cabecera-dialogo"><div><span class="ceja verde">DE LA TIENDA AL CAMINO</span><h2 id="titulo-pedidos">Mis pedidos.</h2></div><button class="cerrar" data-cerrar aria-label="Cerrar pedidos">✕</button></div><div id="contenido-pedidos"></div></dialog>
+  <dialog id="dialogo-comerciante" class="dialogo comerciante" aria-labelledby="titulo-comerciante"><div class="cabecera-dialogo"><div><span class="ceja verde">SUR / ADMINISTRACIÓN</span><h2 id="titulo-comerciante">Administración</h2></div><button class="cerrar" data-cerrar aria-label="Cerrar administración">✕</button></div><div id="contenido-comerciante"></div></dialog>
+  <div class="aviso" id="aviso" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
