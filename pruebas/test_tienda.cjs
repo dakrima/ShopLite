@@ -43,7 +43,7 @@ probar('cupones, redondeo y envío según subtotal descontado', () => {
   assert.equal(tienda.cotizar(datosPedido(linea, { region: 'Los Ríos' })).costo_envio, 6990);
   const dos = [{ ...linea[0], cantidad: 2 }];
   assert.equal(tienda.cotizar(datosPedido(dos)).costo_envio, 0);
-  tienda.ingresar('SurDemo2026!');
+  tienda.ingresar('12345678');
   tienda.crearCupon({ codigo: 'MENOS30', tipo: 'porcentaje', valor: 30, activo: true });
   assert.equal(tienda.cotizar(datosPedido(dos, { cupon: 'MENOS30' })).costo_envio, 3990);
   assert.throws(() => tienda.cotizar(datosPedido(linea, { cupon: 'INVALIDO' })), /cupón/i);
@@ -65,7 +65,7 @@ probar('pago rechazado, aprobado idempotente y estado del pedido', () => {
   assert.equal(tienda.carrito().lineas.length, 0);
   assert.equal(tienda.carrito().favoritos[0], 1);
   assert.equal(tienda.pedidos().pedidos[0].estado, 'pagado');
-  tienda.ingresar('SurDemo2026!');
+  tienda.ingresar('12345678');
   assert.throws(() => tienda.cambiarEstado(pedido.id, 'entregado'), /estado|avance/i);
   tienda.cambiarEstado(pedido.id, 'enviado');
   tienda.cambiarEstado(pedido.id, 'entregado');
@@ -92,7 +92,8 @@ probar('administración, inventario, producto y validación de imágenes', () =>
   const tienda = cargar();
   assert.throws(() => tienda.inventario(), /Administración/i);
   assert.throws(() => tienda.ingresar('otra'), /clave/i);
-  tienda.ingresar('SurDemo2026!');
+  assert.throws(() => tienda.ingresar('SurDemo2026!'), /clave/i, 'La clave anterior ya no permite ingresar.');
+  tienda.ingresar('12345678');
   assert.equal(tienda.sesion().comerciante, true);
   tienda.guardarInventario('1-1', { stock: 2, umbral: 3 });
   assert.equal(tienda.inventario().variantes[0].stock_bajo, true);
