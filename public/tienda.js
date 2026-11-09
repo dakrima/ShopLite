@@ -106,7 +106,7 @@ const tienda = (() => {
   return {
     sesion,
     ingresar(clave) {
-      if (clave !== 'SurDemo2026!') throw new Error('La clave no es correcta.');
+      if (clave !== '12345678') throw new Error('La clave no es correcta.');
       // shortcut: este acceso solo cambia la vista del mockup; requiere autenticación real si se publica como tienda.
       try { sessionStorage.setItem(claveAdministracion, 'si'); }
       catch { throw new Error('Habilita el almacenamiento del navegador para abrir Administración.'); }

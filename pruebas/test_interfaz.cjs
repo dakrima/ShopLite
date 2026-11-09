@@ -104,7 +104,7 @@ const ejecutar = (codigo) => vm.runInContext(codigo, contexto);
   assert.match(elemento('#contenido-resenas').innerHTML, /&lt;img src=x onerror=&quot;alert\(1\)&quot;&gt;/);
   assert.doesNotMatch(elemento('#contenido-resenas').innerHTML, /<img|<form/);
 
-  ejecutar(`tienda.ingresar('SurDemo2026!'); estado.sesion = tienda.sesion(); estado.tabAdmin = 'cupones';`);
+  ejecutar(`tienda.ingresar('12345678'); estado.sesion = tienda.sesion(); estado.tabAdmin = 'cupones';`);
   await ejecutar(`pintarCupones()`);
   assert.match(elemento('#vista-admin').innerHTML, /SUR10/);
   assert.match(elemento('#vista-admin').innerHTML, /SUR5000/);

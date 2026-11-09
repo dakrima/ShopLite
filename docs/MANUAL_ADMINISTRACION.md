@@ -4,7 +4,7 @@ ShopLite es una demostración frontend. Las compras, los pagos y las notificacio
 
 ## Entrar y salir
 
-Abre la tienda y selecciona **Administración** al final de la página. Ingresa la clave `SurDemo2026!`. Verás las secciones Catálogo y precios, Nuevo producto, Pedidos, Inventario, Cupones y Correos.
+Abre la tienda y selecciona **Administración** al final de la página. Ingresa la clave `12345678`. Verás las secciones Catálogo y precios, Nuevo producto, Pedidos, Inventario, Cupones y Correos.
 
 El botón **Salir** vuelve a la pantalla de ingreso. Cerrar el diálogo conserva el acceso durante la sesión del navegador. La clave representa el flujo del mockup y está incluida en el código público.
 

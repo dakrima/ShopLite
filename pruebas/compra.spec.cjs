@@ -60,7 +60,7 @@ test('compra en una vista, reseña y seguimiento desde Administración', async (
   await expect(page).toHaveTitle(/Equipados para salir/);
 
   await page.locator('#ver-comerciante').click();
-  await page.locator('[name="clave"]').fill('SurDemo2026!');
+  await page.locator('[name="clave"]').fill('12345678');
   await page.locator('#formulario-ingreso button').click();
   await page.locator('[data-tab="pedidos"]').click();
   await page.locator('[data-estado="enviado"]').click();

@@ -9,7 +9,7 @@ Haz doble clic en `abrir.command`, o abre `public/index.html` en Chrome o Safari
 3. En el checkout prueba `SUR10` (10 %) o `SUR5000` ($5.000), envío a domicilio y retiro.
 4. En esa misma vista elige un pago aprobado o rechazado y confirma el pedido. Ante rechazo, cambia el resultado y reintenta: se conserva el mismo pedido. No se realizan cargos.
 5. Revisa Mis pedidos. Después de un pago aprobado puedes escribir una reseña del producto.
-6. En Administración usa `SurDemo2026!`. Edita precios, agrega productos, cambia stock y umbrales, crea cupones y avanza un pedido a enviado y entregado.
+6. En Administración usa `12345678`. Edita precios, agrega productos, cambia stock y umbrales, crea cupones y avanza un pedido a enviado y entregado.
 7. En Correos revisa la representación de las notificaciones de confirmación y despacho. Son registros simulados, no mensajes enviados.
 
 ## Datos locales
