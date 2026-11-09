@@ -100,15 +100,27 @@ test('rechazo y reanudación conservan el pedido y descuentan stock una vez', as
   expect(resultado.lineas).toHaveLength(0);
 });
 
-test('catálogo y bolsa persistentes, cupones y entrega sin conexión', async ({ page }) => {
+test('catálogo y bolsa persistentes, cupones y entrega sin conexión', async ({ page, isMobile }) => {
+  if (isMobile) {
+    await page.locator('#menu-movil summary').click();
+    await expect(page.locator('#menu-movil')).toHaveAttribute('open', '');
+    await page.locator('#menu-movil [data-categoria="Mochilas"]').click();
+    await expect(page.locator('#menu-movil')).not.toHaveAttribute('open', '');
+    await expect(page.locator('.producto')).toHaveCount(1);
+    await page.locator('#limpiar-filtros').click();
+  }
+  await page.locator('.categorias-visuales [data-categoria="Mochilas"]').click();
+  await expect(page.locator('.producto')).toHaveCount(1);
+  await expect(page.locator('.producto-titulo')).toHaveText('Mochila Travesía 24L');
+  await page.locator('#limpiar-filtros').click();
   await page.locator('.categorias [data-categoria="Chaquetas"]').click();
   await expect(page.locator('.producto')).toHaveCount(2);
   await page.locator('#limpiar-filtros').click();
   await page.locator('#busqueda').fill('Mochila');
   await expect(page.locator('.producto')).toHaveCount(1);
   await page.locator('#limpiar-filtros').click();
-  await page.locator('[data-producto="1"]').first().click();
-  await page.locator('#color-ficha').selectOption('Negro');
+  await page.locator('.muestra-color[data-producto="1"][data-color="Negro"]').click();
+  await expect(page.locator('#color-ficha')).toHaveValue('Negro');
   await page.locator('#favorito-ficha').click();
   await page.locator('#agregar-carrito').click();
   await expect(page).toHaveURL(/#catalogo$/);
