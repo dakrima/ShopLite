@@ -34,6 +34,8 @@ Las diferencias deliberadas son funcionales: se muestran ocho productos reales d
 - `npm test`: grupos unitarios de tienda, interfaz y publicación aprobados; seis casos E2E aprobados en escritorio y móvil, sin omisiones ni casos inestables. Incluyen categorías, búsqueda, favoritos, variantes, compra, pedidos y Administración.
 - Revisión estática independiente sin bugs P0-P2. `git diff --check` aprobado.
 
+En la primera comprobación pública se detectó HTML nuevo con CSS y JavaScript antiguos conservados por la caché del navegador (los archivos remotos ya coincidían con main; Pages indicaba `max-age=600`). La preparación de publicación añade ahora un hash de contenido a las URLs de CSS y JavaScript. Las fotos locales se solicitan con la versión Sendero sin alterar las rutas guardadas en las sesiones. Las URLs externas conservan sus consultas. Ambas regresiones se reprodujeron con tests fallidos antes de corregirlas y quedaron cubiertas por los tests de interfaz y publicación.
+
 ## Rendimiento y límites
 
 Medición local con tres cargas por ruta y tamaño, caché desactivada. En móvil de 390 px se aplicaron CPU 4×, latencia 40 ms y bajada de 1,6 Mbps. Tras optimizar portada y categorías, LCP mediana de inicio: **2236 ms**; ficha de mochila: **2116 ms**. CLS mediana: **0,000157**. En escritorio de 1440 px, LCP mediana: 108 ms y 88 ms respectivamente; CLS 0. Las cuatro combinaciones cumplen los objetivos locales de LCP menor a 2500 ms y CLS menor a 0,1.

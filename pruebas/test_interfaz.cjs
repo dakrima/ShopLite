@@ -52,6 +52,8 @@ const ejecutar = (codigo) => vm.runInContext(codigo, contexto);
   `);
   ejecutar('pintarCatalogo(); pintarCarrito();');
   assert.equal((elemento('#productos').innerHTML.match(/class="producto"/g) || []).length, 8);
+  assert.match(elemento('#productos').innerHTML, /src="\.\/imagenes\/chaqueta-ventisquero\.webp\?v=sendero-1"/);
+  assert.equal(ejecutar(`imagenActual('https://fotos.example/prenda.jpg?firma=abc')`), 'https://fotos.example/prenda.jpg?firma=abc', 'Las imágenes externas conservan su URL.');
   assert.match(elemento('#productos').innerHTML, /class="muestra-color"[^>]*data-producto="1"[^>]*data-color="Negro"/);
   assert.match(elemento('#productos').innerHTML, /\.\/iconos\/corazon-lleno\.svg/);
   assert.doesNotMatch(elemento('#productos').innerHTML, /FAVORITO DEL CAMINO|[♥♡]/);
