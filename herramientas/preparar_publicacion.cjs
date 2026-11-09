@@ -1,6 +1,7 @@
 'use strict';
 const fs = require('node:fs');
 const path = require('node:path');
+const { createHash } = require('node:crypto');
 
 const proyecto = path.resolve(__dirname, '..');
 const publicos = path.join(proyecto, 'public');
@@ -26,6 +27,10 @@ try {
   if (contiene(destino, fuente) || contiene(fuente, destino)) throw new Error('El destino debe estar separado de public y no puede sobrescribir las fuentes del proyecto.');
 
   const pagina = fs.readFileSync(path.join(publicos, 'index.html'), 'utf8')
+    .replace(/\b(src|href)="\.\/([\w-]+\.(?:css|js))"/g, (_, atributo, nombre) => {
+      const version = createHash('sha256').update(fs.readFileSync(path.join(publicos, nombre))).digest('hex').slice(0, 12);
+      return `${atributo}="./${nombre}?v=${version}"`;
+    })
     .replace(/^[ \t]*<link\b[^>]*\brel=["']canonical["'][^>]*>\s*/gim, '')
     .replace(/^[ \t]*<meta\b[^>]*\bproperty=["']og:(?:url|image)["'][^>]*>\s*/gim, '')
     .replace('</head>', `  <link rel="canonical" href="${escapar(origen)}">\n  <meta property="og:url" content="${escapar(origen)}">\n  <meta property="og:image" content="${escapar(new URL('imagenes/portada-sendero.webp', origen).href)}">\n</head>`);

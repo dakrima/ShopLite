@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
+const { createHash } = require('node:crypto');
 
 const proyecto = path.resolve(__dirname, '..');
 const preparar = path.join(proyecto, 'herramientas/preparar_publicacion.cjs');
@@ -16,6 +17,10 @@ try {
   const resultado = ejecutar('https://tienda.example/coleccion&equipo', destino);
   assert.equal(resultado.status, 0, resultado.stderr);
   const pagina = fs.readFileSync(path.join(destino, 'index.html'), 'utf8');
+  for (const nombre of ['estilos.css', 'catalogo.js', 'tienda.js', 'app.js']) {
+    const version = createHash('sha256').update(fs.readFileSync(path.join(proyecto, 'public', nombre))).digest('hex').slice(0, 12);
+    assert.ok(pagina.includes(`="./${nombre}?v=${version}"`), `${nombre} debe invalidar su caché cuando cambia su contenido.`);
+  }
   assert.match(pagina, /<link rel="canonical" href="https:\/\/tienda\.example\/coleccion&amp;equipo\/">/);
   assert.match(pagina, /<meta property="og:url" content="https:\/\/tienda\.example\/coleccion&amp;equipo\/">/);
   assert.match(pagina, /<meta property="og:image" content="https:\/\/tienda\.example\/coleccion&amp;equipo\/imagenes\/portada-sendero\.webp">/);
