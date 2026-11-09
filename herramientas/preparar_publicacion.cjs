@@ -28,7 +28,7 @@ try {
   const pagina = fs.readFileSync(path.join(publicos, 'index.html'), 'utf8')
     .replace(/^[ \t]*<link\b[^>]*\brel=["']canonical["'][^>]*>\s*/gim, '')
     .replace(/^[ \t]*<meta\b[^>]*\bproperty=["']og:(?:url|image)["'][^>]*>\s*/gim, '')
-    .replace('</head>', `  <link rel="canonical" href="${escapar(origen)}">\n  <meta property="og:url" content="${escapar(origen)}">\n  <meta property="og:image" content="${escapar(new URL('imagenes/hero-movil.webp', origen).href)}">\n</head>`);
+    .replace('</head>', `  <link rel="canonical" href="${escapar(origen)}">\n  <meta property="og:url" content="${escapar(origen)}">\n  <meta property="og:image" content="${escapar(new URL('imagenes/portada-sendero.webp', origen).href)}">\n</head>`);
   fs.cpSync(publicos, destino, { recursive: true });
   fs.writeFileSync(path.join(destino, 'index.html'), pagina);
   // Los fragmentos de producto comparten documento; solo la página real pertenece al sitemap.

@@ -8,11 +8,12 @@ const publicos = path.resolve(__dirname, '../public');
 assert.ok(fs.existsSync(path.join(publicos, 'tienda.js')), 'La interfaz necesita la tienda local, sin peticiones al backend.');
 
 const elementos = new Map();
+const oyentes = new Map();
 const elemento = (selector) => {
   if (!elementos.has(selector)) elementos.set(selector, {
     value: '', textContent: '', innerHTML: '', hidden: false, disabled: false,
     required: false, open: false, isConnected: true, dataset: {},
-    addEventListener() {}, setAttribute() {}, remove() {}, append() {},
+    addEventListener() {}, setAttribute() {}, removeAttribute() {}, remove() {}, append() {},
     close() { this.open = false; }, showModal() { this.open = true; },
     classList: { toggle() {} }, querySelectorAll: () => [],
     querySelector: () => elemento(`${selector} button`),
@@ -30,7 +31,7 @@ const contexto = vm.createContext({
   fetch: () => { throw new Error('El mockup no debe realizar peticiones.'); },
   document: {
     title: 'SUR Equipados para salir | ShopLite', baseURI: 'file:///ShopLite/public/index.html',
-    querySelector: elemento, querySelectorAll: () => [], addEventListener() {},
+    querySelector: elemento, querySelectorAll: () => [], addEventListener: (tipo, manejador) => oyentes.set(tipo, manejador),
     createElement: () => elemento('elemento-nuevo'), head: { append() {} }, body: { append() {} },
   },
   window: { location: { hash: '', href: 'file:///ShopLite/public/index.html' }, history: { pushState() {}, replaceState() {} }, addEventListener() {} },
@@ -49,6 +50,29 @@ const ejecutar = (codigo) => vm.runInContext(codigo, contexto);
     estado.lineas = tienda.carrito().lineas;
     estado.favoritos = tienda.carrito().favoritos;
   `);
+  ejecutar('pintarCatalogo(); pintarCarrito();');
+  assert.equal((elemento('#productos').innerHTML.match(/class="producto"/g) || []).length, 8);
+  assert.match(elemento('#productos').innerHTML, /class="muestra-color"[^>]*data-producto="1"[^>]*data-color="Negro"/);
+  assert.match(elemento('#productos').innerHTML, /\.\/iconos\/corazon-lleno\.svg/);
+  assert.doesNotMatch(elemento('#productos').innerHTML, /FAVORITO DEL CAMINO|[♥♡]/);
+  assert.match(elemento('#contenido-carrito').innerHTML, /role="progressbar"[^>]*aria-valuenow="80000"[^>]*aria-valuemax="80000"/);
+  assert.match(elemento('#contenido-carrito').innerHTML, /class="progreso-envio-barra" style="width:100%"/);
+  ejecutar(`estado.lineas = [estado.lineas[0]]; estado.lineas[0].cantidad = 1; pintarCarrito();`);
+  assert.match(elemento('#contenido-carrito').innerHTML, /aria-valuenow="49990"/);
+  assert.match(elemento('#contenido-carrito').innerHTML, /Te faltan \$30\.010/);
+  assert.match(elemento('#contenido-carrito').innerHTML, /\.\/iconos\/menos\.svg/);
+  const porcentajeEnvio = Number(elemento('#contenido-carrito').innerHTML.match(/progreso-envio-barra" style="width:([\d.]+)%/)[1]);
+  assert.ok(porcentajeEnvio > 0 && porcentajeEnvio < 100);
+  ejecutar(`
+    const abrirFichaOriginal = abrirFicha;
+    const actualizarTallasOriginal = actualizarTallas;
+    abrirFicha = (identificador) => { estado.productoActual = estado.productos.find((producto) => producto.id === identificador); };
+    actualizarTallas = () => { globalThis.colorSeleccionado = $('#color-ficha').value; };
+  `);
+  const botonColor = { dataset: { producto: '1', color: 'Negro' }, tagName: 'BUTTON', hasAttribute: () => false };
+  await oyentes.get('click')({ target: { closest: () => botonColor }, preventDefault() {} });
+  assert.equal(ejecutar('colorSeleccionado'), 'Negro', 'La muestra abre la ficha con el color escogido.');
+  ejecutar(`abrirFicha = abrirFichaOriginal; actualizarTallas = actualizarTallasOriginal; estado.lineas = tienda.carrito().lineas;`);
   elemento('#envio-checkout').value = 'domicilio';
   elemento('#region-checkout').value = 'Metropolitana de Santiago';
   await ejecutar(`actualizarEnvio('SUR10')`);
@@ -119,5 +143,5 @@ const ejecutar = (codigo) => vm.runInContext(codigo, contexto);
   assert.equal(ejecutar('tienda.pedidos().pedidos.length'), pedidosAntes + 1, 'Reintentar o pulsar dos veces no crea otro pedido.');
   assert.equal(ejecutar('tienda.catalogo().productos[0].variantes[0].stock'), stockAntes - 1);
   assert.match(elemento('#contenido-checkout').innerHTML, /id="resultado-pedidos"/);
-  console.log('Interfaz local: cupones, reseñas, precios y checkout único con rechazo/reintento sin duplicados correctos; sin peticiones.');
+  console.log('Interfaz local: colores, iconos, avance de envío, cupones, reseñas, precios y checkout único correctos; sin peticiones.');
 })().catch((error) => { console.error(error); process.exitCode = 1; });

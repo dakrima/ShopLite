@@ -18,7 +18,7 @@ try {
   const pagina = fs.readFileSync(path.join(destino, 'index.html'), 'utf8');
   assert.match(pagina, /<link rel="canonical" href="https:\/\/tienda\.example\/coleccion&amp;equipo\/">/);
   assert.match(pagina, /<meta property="og:url" content="https:\/\/tienda\.example\/coleccion&amp;equipo\/">/);
-  assert.match(pagina, /<meta property="og:image" content="https:\/\/tienda\.example\/coleccion&amp;equipo\/imagenes\/hero-movil\.webp">/);
+  assert.match(pagina, /<meta property="og:image" content="https:\/\/tienda\.example\/coleccion&amp;equipo\/imagenes\/portada-sendero\.webp">/);
   const sitemap = fs.readFileSync(path.join(destino, 'sitemap.xml'), 'utf8');
   assert.match(sitemap, /<loc>https:\/\/tienda\.example\/coleccion&amp;equipo\/<\/loc>/);
   assert.equal((sitemap.match(/<url>/g) || []).length, 1, 'Solo la página real entra en el sitemap; los fragmentos no son páginas indexables.');

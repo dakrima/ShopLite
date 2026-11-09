@@ -13,6 +13,16 @@ Las imágenes inicialmente descargadas de chaquetas de cuero y denim se sustituy
 
 La galería demuestra selección de imágenes. Las fotografías no muestran todas las combinaciones de talla y color de los datos ficticios.
 
-Las variantes `.webp` conservan las fotografías de referencia y reducen su transferencia. `hero-movil.webp` es una versión de 640 px para pantallas de hasta 720 px; la precarga selecciona una sola variante según la pantalla.
+La versión anterior usaba estas referencias también en WebP y `hero-movil.webp` para la portada. La dirección actual sustituye los WebP de producto según se detalla más abajo.
 
 Fuentes locales: DM Sans y Libre Caslon Display, distribuidas bajo SIL Open Font License. Los textos de licencia se incluyen en `public/fuentes/OFL_DM_Sans.txt` y `public/fuentes/OFL_Libre_Caslon_Display.txt`.
+
+## Dirección Sendero editorial (noviembre de 2026)
+
+La portada, los cuatro accesos fotográficos, el paisaje editorial y las ocho fotografías de estudio actuales se generaron individualmente con Image Gen a partir de la propuesta visual 1 elegida por el usuario. Son imágenes ilustrativas de productos ficticios, sin logos de terceros. Se optimizaron a WebP para el sitio; los originales de trabajo permanecen fuera del repositorio.
+
+`portada-sendero.webp` (1760 px) y su versión móvil (600 px) presentan el mismo paisaje con un recorte adaptado. La precarga escoge una sola portada según la pantalla. `categoria-chaquetas.webp`, `categoria-mochilas.webp`, `categoria-capas.webp` y `categoria-accesorios.webp` corresponden a los accesos del inicio; cada una tiene una variante de 360 px para reducir la transferencia móvil. `editorial-patagonia.webp` ilustra la sección inferior.
+
+Las nuevas fotos de producto sustituyen los WebP utilizados por el catálogo inicial; se conservaron los nombres de archivo anteriores para que las sesiones locales existentes muestren la nueva presentación sin borrar pedidos, stock o cambios administrativos. Los JPG históricos se conservan como referencias de la versión anterior. Las fotos ilustran el producto y no representan cada combinación de talla y color.
+
+Los iconos de interfaz pertenecen a Phosphor Icons 2.1.1, peso Light y corazón Fill. Se incluyen únicamente los SVG usados y su licencia MIT en `public/iconos/LICENCIA.txt`; no se añadió una dependencia de aplicación. Fuente: https://github.com/phosphor-icons/core.
